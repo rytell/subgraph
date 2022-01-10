@@ -1,0 +1,24 @@
+{
+  "name": "@rytell/subgraph",
+  "version": "0.0.1",
+  "repository": "https://github.com/rytell/subgraph",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "codegen": "graph codegen --output-dir src/types/",
+    "build": "graph build",
+    "deploy": "graph deploy --product hosted-service josema03/partyswap-dex",
+    "create-local": "graph create --node http://localhost:8020/ josema03/partyswap-dex",
+    "remove-local": "graph remove --node http://localhost:8020/ josema03/partyswap-dex",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 josema03/partyswap-dex"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.16.0",
+    "@graphprotocol/graph-ts": "^0.16.0",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "eslint": "^6.2.2",
+    "eslint-config-prettier": "^6.1.0",
+    "prettier": "^1.18.2",
+    "typescript": "^3.5.2"
+  }
+}
