@@ -1,4 +1,4 @@
-type PartyswapFactory @entity {
+type RytellFactory @entity {
   # factory address
   id: ID!
 
@@ -216,8 +216,8 @@ type Bundle @entity {
   ethPrice: BigDecimal! # price of ETH usd
 }
 
-# Data accumulated and condensed into day stats for all of Partyswap
-type PartyswapDayData @entity {
+# Data accumulated and condensed into day stats for all of Rytell
+type RytellDayData @entity {
   id: ID! # timestamp rounded to current day by dividing by 86400
   date: Int!
 
@@ -297,8 +297,8 @@ type TokenDayData @entity {
   priceUSD: BigDecimal!
 }
 
-type Jacuzzi @entity {
-  # Jacuzzi address
+type StakingPool @entity {
+  # StakingPool address
   id: ID!
 
   totalInjected: BigDecimal!
@@ -307,29 +307,29 @@ type Jacuzzi @entity {
   txCount: BigInt!
   txCountFromParty: BigInt!
 
-  interactions: [JacuzziInteraction!]! @derivedFrom(field: "jacuzzi")
+  interactions: [StakingPoolInteraction!]! @derivedFrom(field: "stakingPool")
 }
 
-type JacuzziInteraction @entity {
+type StakingPoolInteraction @entity {
   # transaction hash + "-" + index in enter Transaction array
   id: ID!
   blockNumber: BigInt!
   timestamp: BigInt!
 
-  jacuzzi: Jacuzzi!
+  stakingPool: StakingPool!
   user: User!
-  jacuzziPosition: JacuzziPosition!
+  stakingPoolPosition: StakingPoolPosition!
 
   amountStaked: BigDecimal!
   amountRetired: BigDecimal!
-  jacuzziTokenMinted: BigDecimal!
-  jacuzziTokenBurned: BigDecimal!
+  stakingPoolTokenMinted: BigDecimal!
+  stakingPoolTokenBurned: BigDecimal!
 }
 
-type JacuzziPosition @entity {
+type StakingPoolPosition @entity {
   ## user id - first transaction hash
   id: ID!
   user: User!
-  jacuzzi: Jacuzzi!
-  jacuzziTokenBalance: BigDecimal!
+  stakingPool: StakingPool!
+  stakingPoolTokenBalance: BigDecimal!
 }

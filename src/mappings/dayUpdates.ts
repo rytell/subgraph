@@ -1,17 +1,17 @@
 import { PairHourData } from './../types/schema'
 /* eslint-disable prefer-const */
 import { BigInt, BigDecimal, EthereumEvent } from '@graphprotocol/graph-ts'
-import { Pair, Bundle, Token, PartyswapFactory, PartyswapDayData, PairDayData, TokenDayData } from '../types/schema'
+import { Pair, Bundle, Token, RytellFactory, RytellDayData, PairDayData, TokenDayData } from '../types/schema'
 import { ONE_BI, ZERO_BD, ZERO_BI, FACTORY_ADDRESS } from './helpers'
 
-export function updatePartyswapDayData(event: EthereumEvent): PartyswapDayData {
-  let partyswap = PartyswapFactory.load(FACTORY_ADDRESS)
+export function updateRytellDayData(event: EthereumEvent): RytellDayData {
+  let partyswap = RytellFactory.load(FACTORY_ADDRESS)
   let timestamp = event.block.timestamp.toI32()
   let dayID = timestamp / 86400
   let dayStartTimestamp = dayID * 86400
-  let partyswapDayData = PartyswapDayData.load(dayID.toString())
+  let partyswapDayData = RytellDayData.load(dayID.toString())
   if (partyswapDayData === null) {
-    partyswapDayData = new PartyswapDayData(dayID.toString())
+    partyswapDayData = new RytellDayData(dayID.toString())
     partyswapDayData.date = dayStartTimestamp
     partyswapDayData.dailyVolumeUSD = ZERO_BD
     partyswapDayData.dailyVolumeETH = ZERO_BD
@@ -25,7 +25,7 @@ export function updatePartyswapDayData(event: EthereumEvent): PartyswapDayData {
   partyswapDayData.txCount = partyswap.txCount
   partyswapDayData.save()
 
-  return partyswapDayData as PartyswapDayData
+  return partyswapDayData as RytellDayData
 }
 
 export function updatePairDayData(event: EthereumEvent): PairDayData {

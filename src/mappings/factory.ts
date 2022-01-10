@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import { log } from '@graphprotocol/graph-ts'
-import { PartyswapFactory, Pair, Token, Bundle } from '../types/schema'
+import { RytellFactory, Pair, Token, Bundle } from '../types/schema'
 import { PairCreated } from '../types/Factory/Factory'
 import { Pair as PairTemplate } from '../types/templates'
 import {
@@ -15,9 +15,9 @@ import {
 
 export function handleNewPair(event: PairCreated): void {
   // load factory (create if first exchange)
-  let factory = PartyswapFactory.load(FACTORY_ADDRESS)
+  let factory = RytellFactory.load(FACTORY_ADDRESS)
   if (factory === null) {
-    factory = new PartyswapFactory(FACTORY_ADDRESS)
+    factory = new RytellFactory(FACTORY_ADDRESS)
     factory.pairCount = 0
     factory.totalVolumeETH = ZERO_BD
     factory.totalLiquidityETH = ZERO_BD

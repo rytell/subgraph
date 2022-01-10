@@ -5,7 +5,7 @@ import {
   Burn as BurnEvent,
   Mint as MintEvent,
   Pair,
-  PartyswapFactory,
+  RytellFactory,
   Swap as SwapEvent,
   Token,
   Transaction
@@ -21,7 +21,7 @@ import {
 import {
   updatePairDayData,
   updatePairHourData,
-  updatePartyswapDayData,
+  updateRytellDayData,
   updateTokenDayData
 } from "./dayUpdates";
 import {
@@ -112,7 +112,7 @@ export function handleTransfer(event: Transfer): void {
     return;
   }
 
-  let factory = PartyswapFactory.load(FACTORY_ADDRESS);
+  let factory = RytellFactory.load(FACTORY_ADDRESS);
   let transactionHash = event.transaction.hash.toHexString();
 
   // user stats
@@ -304,7 +304,7 @@ export function handleSync(event: Sync): void {
   let pair = Pair.load(event.address.toHex());
   let token0 = Token.load(pair.token0);
   let token1 = Token.load(pair.token1);
-  let partyswap = PartyswapFactory.load(FACTORY_ADDRESS);
+  let partyswap = RytellFactory.load(FACTORY_ADDRESS);
 
   // reset factory liquidity by subtracting onluy tarcked liquidity
   partyswap.totalLiquidityETH = partyswap.totalLiquidityETH.minus(
@@ -382,7 +382,7 @@ export function handleMint(event: Mint): void {
   let mint = MintEvent.load(mints[mints.length - 1]);
 
   let pair = Pair.load(event.address.toHex());
-  let partyswap = PartyswapFactory.load(FACTORY_ADDRESS);
+  let partyswap = RytellFactory.load(FACTORY_ADDRESS);
 
   let token0 = Token.load(pair.token0);
   let token1 = Token.load(pair.token1);
@@ -435,7 +435,7 @@ export function handleMint(event: Mint): void {
   // update day entities
   updatePairDayData(event);
   updatePairHourData(event);
-  updatePartyswapDayData(event);
+  updateRytellDayData(event);
   updateTokenDayData(token0 as Token, event);
   updateTokenDayData(token1 as Token, event);
 }
@@ -452,7 +452,7 @@ export function handleBurn(event: Burn): void {
   let burn = BurnEvent.load(burns[burns.length - 1]);
 
   let pair = Pair.load(event.address.toHex());
-  let partyswap = PartyswapFactory.load(FACTORY_ADDRESS);
+  let partyswap = RytellFactory.load(FACTORY_ADDRESS);
 
   //update token info
   let token0 = Token.load(pair.token0);
@@ -506,7 +506,7 @@ export function handleBurn(event: Burn): void {
   // update day entities
   updatePairDayData(event);
   updatePairHourData(event);
-  updatePartyswapDayData(event);
+  updateRytellDayData(event);
   updateTokenDayData(token0 as Token, event);
   updateTokenDayData(token1 as Token, event);
 }
@@ -597,7 +597,7 @@ export function handleSwap(event: Swap): void {
   pair.save();
 
   // update global values, only used tracked amounts for volume
-  let partyswap = PartyswapFactory.load(FACTORY_ADDRESS);
+  let partyswap = RytellFactory.load(FACTORY_ADDRESS);
   partyswap.totalVolumeUSD = partyswap.totalVolumeUSD.plus(trackedAmountUSD);
   partyswap.totalVolumeETH = partyswap.totalVolumeETH.plus(trackedAmountETH);
   partyswap.untrackedVolumeUSD = partyswap.untrackedVolumeUSD.plus(
@@ -657,7 +657,7 @@ export function handleSwap(event: Swap): void {
   // update day entities
   let pairDayData = updatePairDayData(event);
   let pairHourData = updatePairHourData(event);
-  let partyswapDayData = updatePartyswapDayData(event);
+  let partyswapDayData = updateRytellDayData(event);
   let token0DayData = updateTokenDayData(token0 as Token, event);
   let token1DayData = updateTokenDayData(token1 as Token, event);
 

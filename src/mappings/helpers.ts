@@ -22,7 +22,7 @@ import { Factory as FactoryContract } from "../types/templates/Pair/Factory";
 export const ADDRESS_ZERO = "0x0000000000000000000000000000000000000000";
 export const FACTORY_ADDRESS = "0x58a08bc28f3e8dab8fb2773d8f243bc740398b09";
 export const ROUTER_ADDRESS = "0xff164ede3e7c375e8764e9e3a22d3e35f780eebc";
-export const JACUZZI_ADDRESS = "0x99c904cc0e919867404b49a804d30473e8344b1c";
+export const STAKING_POOL_ADDRESS = "0x99c904cc0e919867404b49a804d30473e8344b1c";
 
 export let ZERO_BI = BigInt.fromI32(0);
 export let ONE_BI = BigInt.fromI32(1);
