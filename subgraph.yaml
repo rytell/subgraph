@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: Factory
-    network: avalanche
+    network: fuji
     source:
-      address: "0x58a08bc28f3e8dab8fb2773d8f243bc740398b09"
+      address: "0x12c643591dD4bcf68bc71Ff5d79DB505EaC792A2"
       abi: Factory
-      startBlock: 3237021
+      startBlock: 4443849
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.3
@@ -33,11 +33,11 @@ dataSources:
           handler: handleNewPair
   - kind: ethereum/contract
     name: StakingPool
-    network: avalanche
+    network: fuji
     source:
-      address: "0x99c904cc0e919867404b49a804d30473e8344b1c"
+      address: "0x9812Fb943aA12fEC07dDF496DEbaF1c4765403FA"
       abi: StakingPool
-      startBlock: 3242444
+      startBlock: 3968467
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.3
@@ -53,11 +53,11 @@ dataSources:
           handler: handleTransfer
   - kind: ethereum/contract
     name: Radi
-    network: avalanche
+    network: fuji
     source:
-      address: "0x69a61f38df59cbb51962e69c54d39184e21c27ec"
+      address: "0xCcA36c23E977d6c2382dF43e930BC8dE9daC897E"
       abi: Radi
-      startBlock: 3242444
+      startBlock: 3967893
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.3
@@ -74,7 +74,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: Pair
-    network: avalanche
+    network: fuji
     source:
       abi: Pair
     mapping:

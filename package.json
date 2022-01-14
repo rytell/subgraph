@@ -6,13 +6,13 @@
   "scripts": {
     "codegen": "graph codegen --output-dir src/types/",
     "build": "graph build",
-    "deploy": "graph deploy --product hosted-service josema03/partyswap-dex",
+    "deploy": "graph deploy --product hosted-service pedroomedicina/rytellfuji",
     "create-local": "graph create --node http://localhost:8020/ josema03/partyswap-dex",
     "remove-local": "graph remove --node http://localhost:8020/ josema03/partyswap-dex",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 josema03/partyswap-dex"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.16.0",
+    "@graphprotocol/graph-cli": "0.21.1",
     "@graphprotocol/graph-ts": "^0.16.0",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
