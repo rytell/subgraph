@@ -4,8 +4,8 @@ import { BigDecimal, Address, BigInt } from "@graphprotocol/graph-ts/index";
 import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD } from "./helpers";
 
 const WAVAX_ADDRESS = "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7";
-const USDT_WAVAX_PAIR = "0xf83575ddc6744c07ca49a33f89e9581b9b20653e"; // created block 2,884,714
-const DAI_WAVAX_PAIR = "0x872b1d0be81d1f1959930fb47905ef5bc60c86b3"; // created block 2,884,712
+const USDT_WAVAX_PAIR = "0x961b356b0a7fb534430640f07740ac10eeec8b44"; // created block 2,884,714
+const DAI_WAVAX_PAIR = ""; // created block 2,884,712
 
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin

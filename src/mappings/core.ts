@@ -304,10 +304,10 @@ export function handleSync(event: Sync): void {
   let pair = Pair.load(event.address.toHex());
   let token0 = Token.load(pair.token0);
   let token1 = Token.load(pair.token1);
-  let partyswap = RytellFactory.load(FACTORY_ADDRESS);
+  let rytell = RytellFactory.load(FACTORY_ADDRESS);
 
   // reset factory liquidity by subtracting onluy tarcked liquidity
-  partyswap.totalLiquidityETH = partyswap.totalLiquidityETH.minus(
+  rytell.totalLiquidityETH = rytell.totalLiquidityETH.minus(
     pair.trackedReserveETH as BigDecimal
   );
 
@@ -358,10 +358,10 @@ export function handleSync(event: Sync): void {
   pair.reserveUSD = pair.reserveETH.times(bundle.ethPrice);
 
   // use tracked amounts globally
-  partyswap.totalLiquidityETH = partyswap.totalLiquidityETH.plus(
+  rytell.totalLiquidityETH = rytell.totalLiquidityETH.plus(
     trackedLiquidityETH
   );
-  partyswap.totalLiquidityUSD = partyswap.totalLiquidityETH.times(
+  rytell.totalLiquidityUSD = rytell.totalLiquidityETH.times(
     bundle.ethPrice
   );
 
@@ -371,7 +371,7 @@ export function handleSync(event: Sync): void {
 
   // save entities
   pair.save();
-  partyswap.save();
+  rytell.save();
   token0.save();
   token1.save();
 }
@@ -382,7 +382,7 @@ export function handleMint(event: Mint): void {
   let mint = MintEvent.load(mints[mints.length - 1]);
 
   let pair = Pair.load(event.address.toHex());
-  let partyswap = RytellFactory.load(FACTORY_ADDRESS);
+  let rytell = RytellFactory.load(FACTORY_ADDRESS);
 
   let token0 = Token.load(pair.token0);
   let token1 = Token.load(pair.token1);
@@ -410,13 +410,13 @@ export function handleMint(event: Mint): void {
 
   // update txn counts
   pair.txCount = pair.txCount.plus(ONE_BI);
-  partyswap.txCount = partyswap.txCount.plus(ONE_BI);
+  rytell.txCount = rytell.txCount.plus(ONE_BI);
 
   // save entities
   token0.save();
   token1.save();
   pair.save();
-  partyswap.save();
+  rytell.save();
 
   mint.sender = event.params.sender;
   mint.amount0 = token0Amount as BigDecimal;
@@ -452,7 +452,7 @@ export function handleBurn(event: Burn): void {
   let burn = BurnEvent.load(burns[burns.length - 1]);
 
   let pair = Pair.load(event.address.toHex());
-  let partyswap = RytellFactory.load(FACTORY_ADDRESS);
+  let rytell = RytellFactory.load(FACTORY_ADDRESS);
 
   //update token info
   let token0 = Token.load(pair.token0);
@@ -478,14 +478,14 @@ export function handleBurn(event: Burn): void {
     .times(bundle.ethPrice);
 
   // update txn counts
-  partyswap.txCount = partyswap.txCount.plus(ONE_BI);
+  rytell.txCount = rytell.txCount.plus(ONE_BI);
   pair.txCount = pair.txCount.plus(ONE_BI);
 
   // update global counter and save
   token0.save();
   token1.save();
   pair.save();
-  partyswap.save();
+  rytell.save();
 
   // update burn
   // burn.sender = event.params.sender
@@ -597,19 +597,19 @@ export function handleSwap(event: Swap): void {
   pair.save();
 
   // update global values, only used tracked amounts for volume
-  let partyswap = RytellFactory.load(FACTORY_ADDRESS);
-  partyswap.totalVolumeUSD = partyswap.totalVolumeUSD.plus(trackedAmountUSD);
-  partyswap.totalVolumeETH = partyswap.totalVolumeETH.plus(trackedAmountETH);
-  partyswap.untrackedVolumeUSD = partyswap.untrackedVolumeUSD.plus(
+  let rytell = RytellFactory.load(FACTORY_ADDRESS);
+  rytell.totalVolumeUSD = rytell.totalVolumeUSD.plus(trackedAmountUSD);
+  rytell.totalVolumeETH = rytell.totalVolumeETH.plus(trackedAmountETH);
+  rytell.untrackedVolumeUSD = rytell.untrackedVolumeUSD.plus(
     derivedAmountUSD
   );
-  partyswap.txCount = partyswap.txCount.plus(ONE_BI);
+  rytell.txCount = rytell.txCount.plus(ONE_BI);
 
   // save entities
   pair.save();
   token0.save();
   token1.save();
-  partyswap.save();
+  rytell.save();
 
   let transaction = Transaction.load(event.transaction.hash.toHexString());
   if (transaction === null) {
@@ -657,21 +657,21 @@ export function handleSwap(event: Swap): void {
   // update day entities
   let pairDayData = updatePairDayData(event);
   let pairHourData = updatePairHourData(event);
-  let partyswapDayData = updateRytellDayData(event);
+  let rytellDayData = updateRytellDayData(event);
   let token0DayData = updateTokenDayData(token0 as Token, event);
   let token1DayData = updateTokenDayData(token1 as Token, event);
 
   // swap specific updating
-  partyswapDayData.dailyVolumeUSD = partyswapDayData.dailyVolumeUSD.plus(
+  rytellDayData.dailyVolumeUSD = rytellDayData.dailyVolumeUSD.plus(
     trackedAmountUSD
   );
-  partyswapDayData.dailyVolumeETH = partyswapDayData.dailyVolumeETH.plus(
+  rytellDayData.dailyVolumeETH = rytellDayData.dailyVolumeETH.plus(
     trackedAmountETH
   );
-  partyswapDayData.dailyVolumeUntracked = partyswapDayData.dailyVolumeUntracked.plus(
+  rytellDayData.dailyVolumeUntracked = rytellDayData.dailyVolumeUntracked.plus(
     derivedAmountUSD
   );
-  partyswapDayData.save();
+  rytellDayData.save();
 
   // swap specific updating for pair
   pairDayData.dailyVolumeToken0 = pairDayData.dailyVolumeToken0.plus(

@@ -48,7 +48,7 @@ This query fetches aggredated data from all Rytell pairs and tokens, to give a v
 
 ```graphql
 {
-  partyswapFactories(first: 1) {
+  rytellFactories(first: 1) {
     pairCount
     totalVolumeUSD
     totalLiquidityUSD

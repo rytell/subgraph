@@ -5,27 +5,27 @@ import { Pair, Bundle, Token, RytellFactory, RytellDayData, PairDayData, TokenDa
 import { ONE_BI, ZERO_BD, ZERO_BI, FACTORY_ADDRESS } from './helpers'
 
 export function updateRytellDayData(event: EthereumEvent): RytellDayData {
-  let partyswap = RytellFactory.load(FACTORY_ADDRESS)
+  let rytell = RytellFactory.load(FACTORY_ADDRESS)
   let timestamp = event.block.timestamp.toI32()
   let dayID = timestamp / 86400
   let dayStartTimestamp = dayID * 86400
-  let partyswapDayData = RytellDayData.load(dayID.toString())
-  if (partyswapDayData === null) {
-    partyswapDayData = new RytellDayData(dayID.toString())
-    partyswapDayData.date = dayStartTimestamp
-    partyswapDayData.dailyVolumeUSD = ZERO_BD
-    partyswapDayData.dailyVolumeETH = ZERO_BD
-    partyswapDayData.totalVolumeUSD = ZERO_BD
-    partyswapDayData.totalVolumeETH = ZERO_BD
-    partyswapDayData.dailyVolumeUntracked = ZERO_BD
+  let rytellDayData = RytellDayData.load(dayID.toString())
+  if (rytellDayData === null) {
+    rytellDayData = new RytellDayData(dayID.toString())
+    rytellDayData.date = dayStartTimestamp
+    rytellDayData.dailyVolumeUSD = ZERO_BD
+    rytellDayData.dailyVolumeETH = ZERO_BD
+    rytellDayData.totalVolumeUSD = ZERO_BD
+    rytellDayData.totalVolumeETH = ZERO_BD
+    rytellDayData.dailyVolumeUntracked = ZERO_BD
   }
 
-  partyswapDayData.totalLiquidityUSD = partyswap.totalLiquidityUSD
-  partyswapDayData.totalLiquidityETH = partyswap.totalLiquidityETH
-  partyswapDayData.txCount = partyswap.txCount
-  partyswapDayData.save()
+  rytellDayData.totalLiquidityUSD = rytell.totalLiquidityUSD
+  rytellDayData.totalLiquidityETH = rytell.totalLiquidityETH
+  rytellDayData.txCount = rytell.txCount
+  rytellDayData.save()
 
-  return partyswapDayData as RytellDayData
+  return rytellDayData as RytellDayData
 }
 
 export function updatePairDayData(event: EthereumEvent): PairDayData {

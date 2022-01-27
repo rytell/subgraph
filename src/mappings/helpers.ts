@@ -20,10 +20,10 @@ import {
 import { Factory as FactoryContract } from "../types/templates/Pair/Factory";
 
 export const ADDRESS_ZERO = "0x0000000000000000000000000000000000000000";
-export const FACTORY_ADDRESS = "0xe5e970FE3a90F314977a9Fd41e349486a9e8c4fe";
-export const ROUTER_ADDRESS = "0xa333EEBa817519B7F9C8B074b19Af7b6F8076e71";
+export const FACTORY_ADDRESS = "0xe5e970fe3a90f314977a9fd41e349486a9e8c4fe";
+export const ROUTER_ADDRESS = "0xa333eeba817519b7f9c8b074b19af7b6f8076e71";
 export const STAKING_POOL_ADDRESS =
-  "0x9812Fb943aA12fEC07dDF496DEbaF1c4765403FA;";
+  "0xa19a30b689cde1fb05f89e81a72c14ea31b7ac00";
 
 export let ZERO_BI = BigInt.fromI32(0);
 export let ONE_BI = BigInt.fromI32(1);
