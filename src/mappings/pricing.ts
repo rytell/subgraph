@@ -6,7 +6,7 @@ import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD } from "./helpers";
 const WAVAX_ADDRESS = "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7";
 // const USDT_WAVAX_PAIR = "0x961b356b0a7fb534430640f07740ac10eeec8b44"; // created block 2,884,714
 const DAI_WAVAX_PAIR = ""; // created block 2,884,712
-const USDC_WAVAX_PAIR = "0xe8440c62c6c01E7C47CbEDFCa80aB26be0AF79dB";
+const USDC_WAVAX_PAIR = "0xe8440c62c6c01e7c47cbedfca80ab26be0af79db";
 
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
