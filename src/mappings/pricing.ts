@@ -4,30 +4,31 @@ import { BigDecimal, Address, BigInt } from "@graphprotocol/graph-ts/index";
 import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD } from "./helpers";
 
 const WAVAX_ADDRESS = "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7";
-const USDT_WAVAX_PAIR = "0x961b356b0a7fb534430640f07740ac10eeec8b44"; // created block 2,884,714
+// const USDT_WAVAX_PAIR = "0x961b356b0a7fb534430640f07740ac10eeec8b44"; // created block 2,884,714
 const DAI_WAVAX_PAIR = ""; // created block 2,884,712
+const USDC_WAVAX_PAIR = "0xe8440c62c6c01E7C47CbEDFCa80aB26be0AF79dB";
 
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
   let daiPair = Pair.load(DAI_WAVAX_PAIR); // dai is token1
-  let usdtPair = Pair.load(USDT_WAVAX_PAIR); // usdt is token1
+  let usdcPair = Pair.load(USDC_WAVAX_PAIR); // usdt is token1
   let zero = BigDecimal.fromString("0");
   let totalLiquidityWAVAX = zero;
 
-  if (daiPair !== null && usdtPair !== null) {
+  if (daiPair !== null && usdcPair !== null) {
     // DAI and USDT have been created
-    totalLiquidityWAVAX = daiPair.reserve0.plus(usdtPair.reserve0);
+    totalLiquidityWAVAX = daiPair.reserve0.plus(usdcPair.reserve0);
   }
 
   if (totalLiquidityWAVAX.notEqual(zero)) {
     let daiWeight = daiPair.reserve0.div(totalLiquidityWAVAX);
-    let usdtWeight = usdtPair.reserve0.div(totalLiquidityWAVAX);
+    let usdtWeight = usdcPair.reserve0.div(totalLiquidityWAVAX);
     return daiPair.token1Price
       .times(daiWeight)
-      .plus(usdtPair.token1Price.times(usdtWeight));
-  } else if (usdtPair !== null) {
+      .plus(usdcPair.token1Price.times(usdtWeight));
+  } else if (usdcPair !== null) {
     // only USDT has been created
-    return usdtPair.token1Price;
+    return usdcPair.token1Price;
   } else {
     // none have been created
     return ONE_BD; // hack, REMOVE!
