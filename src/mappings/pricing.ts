@@ -11,24 +11,24 @@ const USDC_WAVAX_PAIR = "0xe8440c62c6c01e7c47cbedfca80ab26be0af79db";
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
   let daiPair = Pair.load(DAI_WAVAX_PAIR); // dai is token1
-  let usdcPair = Pair.load(USDC_WAVAX_PAIR); // usdt is token1
+  let usdcPair = Pair.load(USDC_WAVAX_PAIR); // usdc is token0
   let zero = BigDecimal.fromString("0");
   let totalLiquidityWAVAX = zero;
 
   if (daiPair !== null && usdcPair !== null) {
     // DAI and USDT have been created
-    totalLiquidityWAVAX = daiPair.reserve0.plus(usdcPair.reserve0);
+    totalLiquidityWAVAX = daiPair.reserve0.plus(usdcPair.reserve1);
   }
 
   if (totalLiquidityWAVAX.notEqual(zero)) {
     let daiWeight = daiPair.reserve0.div(totalLiquidityWAVAX);
-    let usdtWeight = usdcPair.reserve0.div(totalLiquidityWAVAX);
+    let usdtWeight = usdcPair.reserve1.div(totalLiquidityWAVAX);
     return daiPair.token1Price
       .times(daiWeight)
-      .plus(usdcPair.token1Price.times(usdtWeight));
+      .plus(usdcPair.token0Price.times(usdtWeight));
   } else if (usdcPair !== null) {
     // only USDT has been created
-    return usdcPair.token1Price;
+    return usdcPair.token0Price;
   } else {
     // none have been created
     return ONE_BD; // hack, REMOVE!
@@ -38,6 +38,7 @@ export function getEthPriceInUSD(): BigDecimal {
 // token where amounts should contribute to tracked volume and liquidity
 let WHITELIST: string[] = [
   WAVAX_ADDRESS, // WAVAX
+  '0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664', // usdc.e
   "0x69a61f38df59cbb51962e69c54d39184e21c27ec", // party
   "0xd586e7f844cea2f87f50152665bcbc2c279d8d70", // dai.e
   "0xc7198437980c041c805a1edcba50c1ce5db95118", // usdt.e
