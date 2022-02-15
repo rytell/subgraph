@@ -44,11 +44,14 @@ import {
 } from "./pricing";
 
 let MINING_POOLS: string[] = [
-  "0x8a715e13b00306b55d721be11053da74549c3874",
-  "0xfbfa2532301324dcd25eda7f9c089ceb2fab1d9f",
-  "0x4b25bc0fe7869ce20cb2a4f78b7c0db7c442d1d5",
-  "0x899d0d35712997bbbabe6506edf44a14fc1816a3",
-  "0x867fed0ad388a6603a52dbefa29cc892e2fe470d"
+  "0x8a715e13b00306b55d721be11053da74549c3874", // RADI - AVAX
+  "0xfbfa2532301324dcd25eda7f9c089ceb2fab1d9f", // AVAX - USDC
+  "0x4b25bc0fe7869ce20cb2a4f78b7c0db7c442d1d5", // AVAX - ETH
+  "0x899d0d35712997bbbabe6506edf44a14fc1816a3", // AVAX - EGG
+  "0x867fed0ad388a6603a52dbefa29cc892e2fe470d", // AVAX - CRA
+  "0x6441e036195a400da26b321835a21560fa68b32f", // RADI-EGG
+  "0x38dab2ba6da4ff3f7ec6e0bf5793ccde7f5e13fe", // RADI-CRA
+  "0xd7161d97157fa42e4f5eb003ba223fb5507f008d", // RADI-MEAD
 ]
 
 function isCompleteMint(mintId: string): boolean {
